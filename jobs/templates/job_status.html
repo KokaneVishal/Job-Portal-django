@@ -1,0 +1,38 @@
+{% extends 'user_navbar.html' %}
+
+{% block title %} Job Status {% endblock %}
+{% block job_status %} active {% endblock %}
+{% block css %}
+<style>
+    .status-accepted {
+        color: green;
+    }
+
+    .status-rejected {
+        color: red;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="container mt-4">
+    <h3>Job Status</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Job Title</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job_id, status in status_data.items %}
+            <tr>
+                <td>{{ job_id }}</td>
+                <td class="{% if status == 'Accepted' %}status-accepted{% elif status == 'Rejected' %}status-rejected{% endif %}">
+                    {{ status|default:"pending" }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
